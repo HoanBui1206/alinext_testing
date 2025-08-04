@@ -44,7 +44,7 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        imageList = List(210) {
+        imageList = List(140) {
             "https://picsum.photos/200/200?random=${Random.nextInt()}"
         }.toMutableList() // 210 images = 3 pages
 
@@ -65,7 +65,7 @@ class MainActivity : Activity() {
 
         when (item.itemId) {
             R.id.action_reload -> {
-                imageList = List(210) {index ->
+                imageList = List(140) {index ->
                     "https://picsum.photos/200/200?random=${Random.nextInt()}"
                 }.toMutableList()
 
@@ -74,7 +74,7 @@ class MainActivity : Activity() {
                 return true
             }
             R.id.action_add -> {
-                val newImageUrl = "https://loremflickr.com/200/200?lock=${Random.nextInt()}"
+                val newImageUrl = "https://picsum.photos/200/200?random=${Random.nextInt()}"
 
                 imageList.add(newImageUrl)
                 adapter.updateData(imageList.chunked(70))
@@ -103,7 +103,7 @@ class PageAdapter(private var pages: List<List<String>>) : RecyclerView.Adapter<
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-        rv.layoutManager = GridLayoutManager(parent.context, 10) // 10 rows = 10 items per column
+        rv.layoutManager = GridLayoutManager(parent.context, 7) // 10 rows = 10 items per column
         rv.addItemDecoration(SpaceItemDecoration(2))
         return PageViewHolder(rv)
     }
@@ -142,13 +142,13 @@ class GridAdapter(private val images: List<String>) : RecyclerView.Adapter<GridA
         val screenWidth = Utils.getScreenWidth(context)
         val screenHeight = Utils.getScreenHeight(context)
 
-        val totalSpacingHeight = 2.dp * (7 - 1)
-        val totalSpacingWidth = 2.dp * (10 - 1)
+        val totalSpacingHeight = 2.dp * (10 - 1)
+        val totalSpacingWidth = 2.dp * (7 - 1)
         val toolbarHeight = context.getActionBarHeight()
 
 
-        val itemWidth = ( screenWidth - totalSpacingWidth) / 10     // 👈 7 cột
-        val itemHeight = (Utils.getUsableScreenHeight(context as Activity) - totalSpacingHeight - toolbarHeight) / 7 // 👈 10 dòng
+        val itemWidth = ( screenWidth - totalSpacingWidth) / 7     // 👈 7 cột
+        val itemHeight = (Utils.getUsableScreenHeight(context as Activity) - totalSpacingHeight - toolbarHeight) / 10 // 👈 10 dòng
         val container = FrameLayout(context).apply {
             layoutParams = ViewGroup.LayoutParams(itemWidth, itemHeight)
         }
